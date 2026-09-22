@@ -2,7 +2,7 @@
 FROM node:22.1.0-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --ignore-scripts
 
 # Runtime stage
 FROM node:22.1.0-alpine
@@ -11,7 +11,8 @@ WORKDIR /app
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 COPY --from=builder /app/node_modules ./node_modules
-COPY . .
+COPY app.js ./
+COPY package*.json ./
 
 ENV PORT=8080
 EXPOSE 8080
