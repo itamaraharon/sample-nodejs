@@ -4,9 +4,6 @@ on:
   push:
     branches: [ main ]
 
-permissions:
-  contents: write
-
 jobs:
   sast:
     name: SAST Scan (SonarCloud)
@@ -32,6 +29,8 @@ jobs:
     name: Version Bump
     needs: sast
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       new_tag: ${{ steps.bump.outputs.new_tag }}
     steps:
@@ -90,6 +89,8 @@ jobs:
     name: Update GitOps Repository
     needs: [ version-bump, build-scan-push ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout GitOps repo
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
