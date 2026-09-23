@@ -2,6 +2,7 @@ const express = require('express');
 const promClient = require('prom-client');
 
 const app = express();
+app.disable('x-powered-by');
 const port = process.env.PORT || 8080;
 
 // Create a Registry to register the metrics
