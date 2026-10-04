@@ -22,7 +22,7 @@ register.registerMetric(helloWorldCounter);
 // Define routes
 app.get('/my-app', (req, res) => {
     helloWorldCounter.inc();
-    res.send('Hello, Test CI CD!');
+    res.send('Hello, Refael!');
 });
 
 app.get('/about', (req, res) => {
